@@ -1,0 +1,35 @@
+#include "stdafx.h"
+#include <string>
+#include<iostream>
+
+using namespace std;
+
+void g()
+{
+	const char* p = "hello";
+	const char* q = "hello";
+	if(p == q)
+		cout<<"we are equal"<<endl;
+	else
+		cout<<"we are in different location \a\n";
+}
+
+const char* error_message(int i)
+{
+	if(i == 0)
+		return "success";
+	else return "failure"; //return value not lost
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	string h = error_message(0);
+	cout<<h<<endl;
+	const char* k = error_message(1);
+	cout<<k<<endl;
+	g();
+	char v[] = "hello Bappa";
+	for(int i = 0; i < strlen(v); i++) cout<<v[i];
+	cout<<endl;
+	return 0;
+}
