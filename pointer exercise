@@ -1,0 +1,56 @@
+// sizecalc.cpp : Defines the entry point for the console application.
+//
+//Strousrtop exercise for pointers array and structures
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	char* s ;
+	int* p;
+	double *d;
+	char str[] = "I am";
+
+	cout<<"char pointer "<<sizeof(s)<<endl;
+	cout<<"int pointer "<<sizeof(p)<<endl;
+	cout<<"double pointer "<<sizeof(d)<<endl;
+	cout<<"str array "<<sizeof(str)<<endl;
+
+	//Write declarations for the following: a pointer to a character, an array of 10 integers, a reference
+	//to an array of 10 integers, a pointer to an array of character strings, a pointer to a pointer
+	//to a character, a constant integer, a pointer to a constant integer, and a constant pointer to an
+	//integer. Initialize each one.  
+	//char * p = {'h','e','l','l'}; //cannot convert from 'char' to 'char *
+	char *h = "hello";
+	cout<<"pointer content "<<h<<"size of char pointer "<<sizeof(h)<<endl;
+	int a[10] = {1,2,3,4,5,6,7,8,9,0};
+	for(int i = 0; i < 10; i++)cout<<a[i]<<'\t';
+	int (& r)[10] = a;
+
+    for(int i = 0; i < 10; i++)cout<<r[i]<<'\t';
+
+	char* strptr[] = {"hello","Hi","Bye"};
+
+	for(int i =0; i< 3 ; i++)
+		cout<<strptr[i]<<'\t';
+	char* ptr = "hello";
+	char** doubleptr = &ptr;
+	cout <<**doubleptr<<'\t' <<*doubleptr<<'\t'<<doubleptr;
+	int sam = 10;
+	int ram = 15;
+	const int* jack = &sam;
+	jack = &ram;
+	cout<<*jack;
+	int const * back = &sam;
+	//error C2440: '=' : cannot convert from 'const int **__w64 ' to 'const int *
+	//back = &jack;
+
+
+
+
+	
+	return 0;
+}
+
