@@ -1,0 +1,72 @@
+#include "stdafx.h"
+#include<iostream>
+
+using namespace std;
+
+typedef int (*CFT)(const void*, const void*);
+void ssort(void *base , size_t n , size_t sz , CFT cmp )
+/*
+Sort the "n" elements of vector "base" into increasing order
+using the comparison function pointed to by "cmp".
+The elements are of size "sz".
+Shell sort (Knuth, Vol3, pg84)
+*/
+{
+	for(int gap =n /2 ; 0 <gap ; gap/=2 )
+		for(int i =gap ; i <n ; i++)
+			for(int j =i-gap ;0<=j ; j-=gap ) {
+				char* b = static_cast<char *>(base); // necessary cast
+				char *pj = b +j*sz ; // &base[j]
+				char*pjg =b+(j+gap)*sz; // &base[j+gap]
+				if(cmp(pj,pjg)<0) { // swap base[j] and base[j+gap]:
+					for(int k =0 ; k<sz ; k++) {
+						char temp = pj[k ];
+						pj[k] = pjg[k ];
+						pjg[k] = temp ;
+					}
+				}
+			}
+}
+struct User{
+	char* name;
+	char* ID;
+	int Dept;
+};
+
+User heads[] = {
+	"Ritchie D.M ", "dmr",11271,
+	"Sethi R.", "ravi", 11272,
+	"Szymanski T.G.", "tgs", 11273,
+	"Schryer N.L.", "nls", 11274,
+	"Schryer N.L.", "nls ", 11275 ,
+	"Kernighan B.W.", "bwk", 11276
+};
+
+void print_id(User* v, int n)
+{
+	for(int i=0; i<n; i++)
+	{
+		std::cout<<"User name :"<<v[i].name<<'\t'<<"User ID :"<<v[i].ID<<'\t'<<"User Department"<<v[i].Dept<<'\n';
+	}
+}
+int cmp1(const void* p,const void* q)
+{
+	return strcmp(static_cast <const User*>(p)->name,static_cast<const User*>(q)->name);
+}
+
+int cmp2(const void* p,const void* q)
+{
+	return static_cast<const User*>(p)->Dept - static_cast<const User*>(q)->Dept;
+}
+ 
+int _tmain(int argc, _TCHAR* argv[])
+{
+	cout<<"Before sorting"<<'\n';
+	print_id(heads,3);
+	ssort(heads,3,sizeof(heads),cmp1);
+	cout<<"After sorting by name"<<'\n';
+	print_id(heads,3);
+	ssort(heads,3,sizeof(heads),cmp2);
+	return 0;
+}
+
